@@ -4,21 +4,21 @@ class Vacancy:
     """
 
     def __init__(self, name, area, salary, experience, responsibility, employment, published_at, url):
-        self.name = self.validation_data(name)                        # имя
-        self.area = self.validation_data(area)                        # город
-        self.salary = self.validation_salary(salary)                  # зарплата
-        self.experience = self.validation_data(experience)            # опыт работы
-        self.responsibility = self.validation_data(responsibility)    # обязаности
-        self.employment = self.validation_data(employment)            # занятость
-        self.published_at = self.validation_data(published_at)        # дата публикации
-        self.url = self.validation_data(url)                          # ссылка
+        self.name = self.__validation_data(name)                        # имя
+        self.area = self.__validation_data(area)                        # город
+        self.salary = self.__validation_salary(salary)                  # зарплата
+        self.experience = self.__validation_data(experience)            # опыт работы
+        self.responsibility = self.__validation_data(responsibility)    # обязаности
+        self.employment = self.__validation_data(employment)            # занятость
+        self.published_at = self.__validation_data(published_at)        # дата публикации
+        self.url = self.__validation_data(url)                          # ссылка
 
     def __str__(self):
         return (f"Описание: {self.name}, {self.salary if self.salary else 'Зарплата не указана'}, "
                 f"{self.area}, {self.employment}\n"
                 f"Требования: {self.experience}\n"
                 f"Обязанности: {self.responsibility}\n"
-                f"Дата публикации: {self.get_date()}\n"
+                f"Дата публикации: {self.__get_date()}\n"
                 f"Ссылка: {self.url}\n")
 
     def __lt__(self, other):
@@ -66,7 +66,7 @@ class Vacancy:
         return cls(name, area, salary, experience, responsibility, employment, published_at, url)
 
     @staticmethod
-    def validation_salary(data):
+    def __validation_salary(data):
         if data:
             if data['from']:
                 return data['from']
@@ -78,11 +78,11 @@ class Vacancy:
             return 0
 
     @staticmethod
-    def validation_data(data):
+    def __validation_data(data):
         if data:
             return data
         else:
             return 'Отсутсвует'
 
-    def get_date(self):
+    def __get_date(self):
         return f'{self.published_at[8:10]}.{self.published_at[5:7]}.{self.published_at[:4]}'
